@@ -9,15 +9,15 @@ public class ProductManager
     private string _path;
     private int _number;
     
-    public ProductManager(string path)
+    public ProductManager(string path,int numero)
     {
         _path = path;
-        _number = 0;
+        _number = numero;
     }
 
     public Product Create(string name, string tipo, int stock, string code)
     {
-        if(!tipo.Equals("SOCCER") || !tipo.Equals("BASKET"))
+        if(!tipo.Equals("SOCCER") && !tipo.Equals("BASKET"))
         {
             throw new Exception("Error, tipo de producto no valido");
         }

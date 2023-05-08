@@ -18,7 +18,7 @@ IConfiguration Configuration = configurationBuilder.Build();
 string siteTitle = Configuration.GetSection("Title").Value;
 string filePath = Configuration.GetSection("FileJson").Value;
 
-builder.Services.AddTransient<ProductManager>(ServiceProvider => new ProductManager(filePath));
+builder.Services.AddTransient<ProductManager>(ServiceProvider => new ProductManager(filePath,0));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -36,6 +36,7 @@ builder.Services.AddSwaggerGen(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
 
 app.UseSwagger();
 app.UseSwaggerUI();

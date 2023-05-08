@@ -6,11 +6,11 @@ namespace UPB.FinalPractice.Controllers;
 
 [ApiController]
 [Route("products")]
-public class PatientsController : ControllerBase
+public class ProductController : ControllerBase
 {
    private readonly ProductManager _productmanager;
 
-   public PatientsController(ProductManager productmanager)
+   public ProductController(ProductManager productmanager)
    {
       _productmanager = productmanager;
    }
