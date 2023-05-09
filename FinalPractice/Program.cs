@@ -46,7 +46,7 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 Log.Information("Environment: " + builder.Environment.EnvironmentName);
-app.UseGlobalExceptionHandler();
+app.UseGlobalExceptionHandler(Log.Logger);
 app.UseSwagger();
 app.UseSwaggerUI();
 //app.UseHttpsRedirection();
