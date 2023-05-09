@@ -20,4 +20,18 @@ public class ProductController : ControllerBase
    {
       return _productmanager.Create(patientToCreate.Name, patientToCreate.Type, patientToCreate.Stock, patientToCreate.Code);
    }
+
+   [HttpGet]
+   public List<Product> Get()
+   {
+      return _productmanager.GetAll();
+   }
+
+   [HttpGet]
+   [Route("{code}")]
+   public Product GetByCode([FromRoute] string code)
+   {
+      return _productmanager.GetByCode(code);
+   }
+
 }
