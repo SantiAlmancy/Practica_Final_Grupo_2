@@ -1,8 +1,11 @@
 using Microsoft.OpenApi.Models;
 using UPB.CoreLogic.Managers;
 using UPB.FinalPractice.Middlewares;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog();
 
 // Add services to the container.
 
@@ -18,6 +21,11 @@ var configurationBuilder = new ConfigurationBuilder()
 IConfiguration Configuration = configurationBuilder.Build();
 string siteTitle = Configuration.GetSection("Title").Value;
 string filePath = Configuration.GetSection("FileJson").Value;
+
+//create the logger and setup your sinks, filters and properties
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(Configuration)
+    .CreateLogger();
 
 builder.Services.AddTransient<ProductManager>(ServiceProvider => new ProductManager(filePath));
 
@@ -37,7 +45,7 @@ builder.Services.AddSwaggerGen(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-
+Log.Information("Environment: " + builder.Environment.EnvironmentName);
 app.UseGlobalExceptionHandler();
 app.UseSwagger();
 app.UseSwaggerUI();
