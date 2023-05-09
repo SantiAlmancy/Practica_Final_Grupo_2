@@ -83,6 +83,36 @@ public class ProductManager
         return products;
     }
 
-    
+    public Product GetByCode(string code)
+    {
+        if (code.Length != 10)
+        {
+            throw new Exception ("Error, el codigo no es valido");
+        }
+
+        string json = File.ReadAllText(_path);
+        JsonDocument doc = JsonDocument.Parse(json);
+        JsonElement root = doc.RootElement;
+
+        if (root.ValueKind == JsonValueKind.Array)
+        {
+            foreach (JsonElement element in root.EnumerateArray())
+            {
+                if (element.GetProperty("Code").GetString() == code)
+                {
+                    return new Product
+                    {
+                        Name = element.GetProperty("Name").GetString(),
+                        Type = element.GetProperty("Type").GetString(),
+                        Stock = element.GetProperty("Stock").GetInt32(),
+                        Code = element.GetProperty("Code").GetString(),
+                        Price = element.GetProperty("Price").GetDouble()
+                    };
+                }
+            }
+        }
+
+        throw new Exception("Error, no se encontro un producto con el code: " + code);
+    }
     
 }
