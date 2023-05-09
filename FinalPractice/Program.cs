@@ -1,5 +1,6 @@
 using Microsoft.OpenApi.Models;
 using UPB.CoreLogic.Managers;
+using UPB.FinalPractice.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,14 +38,10 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-
+app.UseGlobalExceptionHandler();
 app.UseSwagger();
 app.UseSwaggerUI();
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
+//app.UseHttpsRedirection();
+//app.UseAuthorization();
 app.MapControllers();
-
 app.Run();
