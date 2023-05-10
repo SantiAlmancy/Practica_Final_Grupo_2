@@ -36,9 +36,9 @@ public class ProductController : ControllerBase
 
    [HttpPut]
    [Route("{code}")]
-   public Product Update([FromBody]Product productToUpdate)
+   public Product Update([FromRoute] string code, [FromBody]Product productToUpdate)
    {
-      return _productmanager.Update(productToUpdate.Code, productToUpdate.Name, productToUpdate.Type, productToUpdate.Stock);
+      return _productmanager.Update(code, productToUpdate.Name, productToUpdate.Type, productToUpdate.Stock);
    }
 
 }
