@@ -34,4 +34,11 @@ public class ProductController : ControllerBase
       return _productmanager.GetByCode(code);
    }
 
+   [HttpPut]
+   [Route("{code}")]
+   public Product Update([FromBody]Product productToUpdate)
+   {
+      return _productmanager.Update(productToUpdate.Code, productToUpdate.Name, productToUpdate.Type, productToUpdate.Stock);
+   }
+
 }
