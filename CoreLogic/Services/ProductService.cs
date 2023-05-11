@@ -14,13 +14,11 @@ public class ProductService
 
     public async Task<double> getRandom()
     {
-        HttpClient sharedClient = new()
-        {
-            BaseAddress = new Uri(_uri),
-        };
+        using HttpClient client = new HttpClient();
+        client.BaseAddress = new Uri(_uri);
 
         //Respuesta
-        using HttpResponseMessage response = await sharedClient.GetAsync("");
+        using HttpResponseMessage response = await client.GetAsync("");
 
         response.EnsureSuccessStatusCode();
         var json = await response.Content.ReadAsStringAsync();
@@ -28,4 +26,5 @@ public class ProductService
         var decimalValue = element.GetProperty("decimal").GetDouble();
         return decimalValue;
     }
+
 }
