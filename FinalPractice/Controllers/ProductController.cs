@@ -55,5 +55,10 @@ public class ProductController : ControllerBase
    {
       return (await _productmanager.PutPrice(code));
    }
-
+   [HttpDelete]
+   [Route("{code}")]
+   public Product Delete([FromRoute] string code)
+   {
+       return _productmanager.Delete(code);
+   }
 }
