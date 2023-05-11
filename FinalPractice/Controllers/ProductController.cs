@@ -41,4 +41,19 @@ public class ProductController : ControllerBase
       return _productmanager.Update(code, productToUpdate.Name, productToUpdate.Stock);
    }
 
+   [HttpPut]
+   [Route("calculate-prices")]
+   public async Task<List<Product>> PutAllPrices()
+   {
+      return (await _productmanager.PutAllPrices());
+   }
+
+   
+   [HttpPut]
+   [Route("calculate-prices/{code}")]
+   public async Task<Product> PutPrice([FromRoute] string code)
+   {
+      return (await _productmanager.PutPrice(code));
+   }
+
 }
