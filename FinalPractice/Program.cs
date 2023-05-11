@@ -27,7 +27,8 @@ Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(Configuration)
     .CreateLogger();
 
-ProductService service = new ProductService();
+string uri = Configuration.GetSection("URI").Value;
+ProductService service = new ProductService(uri);
 builder.Services.AddTransient<ProductManager>(ServiceProvider => new ProductManager(filePath, service));
 
 builder.Services.AddControllers();

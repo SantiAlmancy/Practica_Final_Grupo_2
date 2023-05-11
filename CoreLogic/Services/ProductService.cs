@@ -5,16 +5,18 @@ namespace UPB.CoreLogic.Services;
 
 public class ProductService
 {
-    public ProductService()
-    {
+    private string _uri;
 
+    public ProductService(string uri)
+    {
+        _uri = uri;
     }
 
     public async Task<double> getRandom()
     {
         HttpClient sharedClient = new()
         {
-            BaseAddress = new Uri("https://random-data-api.com/api/number/random_number"),
+            BaseAddress = new Uri(_uri),
         };
 
         //Respuesta
