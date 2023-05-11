@@ -59,6 +59,6 @@ public class ProductController : ControllerBase
    [Route("{code}")]
    public Product Delete([FromRoute] string code)
    {
-       return _productmanager.Delete(code);
+       return _productmanager.DeleteByCode(code);
    }
 }

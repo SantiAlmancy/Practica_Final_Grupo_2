@@ -1,1 +1,23 @@
-[{"Name":"pelota","Type":"SOCCER","Stock":2,"Code":"SOCCER-001","Price":0},{"Name":"guante","Type":"SOCCER","Stock":4,"Code":"SOCCER-002","Price":0},{"Name":"zapato","Type":"BASKET","Stock":8,"Code":"BASKET-001","Price":0},{"Name":"zapato","Type":"SOCCER","Stock":12,"Code":"SOCCER-003","Price":0}]
+[
+  {
+    "Name": "pelota",
+    "Type": "SOCCER",
+    "Stock": 2,
+    "Code": "SOCCER-001",
+    "Price": 0
+  },
+  {
+    "Name": "guante",
+    "Type": "SOCCER",
+    "Stock": 4,
+    "Code": "SOCCER-002",
+    "Price": 0
+  },
+  {
+    "Name": "zapato",
+    "Type": "BASKET",
+    "Stock": 8,
+    "Code": "BASKET-001",
+    "Price": 0
+  }
+]
