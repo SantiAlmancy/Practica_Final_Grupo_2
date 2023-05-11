@@ -140,4 +140,26 @@ public class ProductManager
             throw new Exception("Error, no se encontró el producto");
         }
     }
+
+    public async Task<List<Product>> PutAllPrices()
+    {
+        string json = File.ReadAllText(_path);
+        List<Product> products = JsonSerializer.Deserialize<List<Product>>(json);
+
+        foreach (Product product in products)
+        {
+            if (product.Price == 0)
+            {
+                product.Price = await _service.getRandom();
+            }
+        }
+
+        // Serialize the updated products back to JSON
+        string updatedJson = JsonSerializer.Serialize(products, new JsonSerializerOptions { WriteIndented = true });
+
+        // Write the updated JSON back to the file
+        File.WriteAllText(_path, updatedJson);
+
+        return products;
+    }
 }
