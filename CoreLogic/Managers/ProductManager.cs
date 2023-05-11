@@ -16,6 +16,11 @@ public class ProductManager
     public ProductManager(string path, ProductService service)
     {
         _path = path;
+        if (!File.Exists(_path))
+        {
+            // Create the file with an empty JSON array
+            File.WriteAllText(_path, "[]");
+        }
         _service = service;
     }
 
