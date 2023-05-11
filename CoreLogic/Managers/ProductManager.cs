@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -184,5 +186,34 @@ public class ProductManager
 
         throw new Exception("Error, no se encontró un producto con el code: " + code);
     }
-    
+    public Product DeleteByCode(string code)
+    {
+        if (code.Length != 10)
+        {
+            throw new Exception("Error, el código no es válido");
+        }
+
+        string json = File.ReadAllText(_path);
+        List<Product> products = JsonSerializer.Deserialize<List<Product>>(json);
+
+        if (products != null)
+        {
+            // Find the product with the specified code and remove it from the list
+            Product productToRemove = products.FirstOrDefault(p => p.Code == code);
+            if (productToRemove != null)
+            {
+                products.Remove(productToRemove);
+
+                // Serialize the updated list of products back to JSON
+                string updatedJson = JsonSerializer.Serialize(products, new JsonSerializerOptions { WriteIndented = true });
+
+                // Write the updated JSON back to the file
+                File.WriteAllText(_path, updatedJson);
+
+                return productToRemove;
+            }
+        }
+
+        throw new Exception("Error, no se encontró un producto con el código: " + code);
+    }
 }
