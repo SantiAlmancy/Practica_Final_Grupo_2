@@ -162,4 +162,27 @@ public class ProductManager
 
         return products;
     }
+
+    public async Task<Product> PutPrice(string code)
+    {
+        string json = File.ReadAllText(_path);
+        List<Product> products = JsonSerializer.Deserialize<List<Product>>(json);
+
+        Product foundProduct = products.FirstOrDefault(p => p.Code == code);
+        if (foundProduct != null)
+        {
+            foundProduct.Price = await _service.getRandom();
+
+            // Serialize the updated products back to JSON
+            string updatedJson = JsonSerializer.Serialize(products, new JsonSerializerOptions { WriteIndented = true });
+
+            // Write the updated JSON back to the file
+            File.WriteAllText(_path, updatedJson);
+
+            return foundProduct;
+        }
+
+        throw new Exception("Error, no se encontró un producto con el code: " + code);
+    }
+    
 }
