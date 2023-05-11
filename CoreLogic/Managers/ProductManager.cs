@@ -66,25 +66,7 @@ public class ProductManager
         }
 
         string json = File.ReadAllText(_path);
-        JsonDocument doc = JsonDocument.Parse(json);
-        JsonElement root = doc.RootElement;
-        List<Product> products = new List<Product>();
-
-         if (root.ValueKind == JsonValueKind.Array)
-        {
-            foreach (JsonElement element in root.EnumerateArray())
-            {
-                Product product = new Product
-                {
-                    Name = element.GetProperty("Name").GetString(),
-                    Type = element.GetProperty("Type").GetString(),
-                    Stock = element.GetProperty("Stock").GetInt32(),
-                    Code = element.GetProperty("Code").GetString(),
-                    Price = element.GetProperty("Price").GetDouble()
-                };
-                products.Add(product);
-            }
-        }
+        List<Product> products = JsonSerializer.Deserialize<List<Product>>(json);
 
         return products;
     }
