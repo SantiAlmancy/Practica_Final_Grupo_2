@@ -1,8 +1,8 @@
 using Microsoft.OpenApi.Models;
 using UPB.CoreLogic.Managers;
+using UPB.CoreLogic.Services;
 using UPB.FinalPractice.Middlewares;
 using Serilog;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog();
@@ -27,7 +27,8 @@ Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(Configuration)
     .CreateLogger();
 
-builder.Services.AddTransient<ProductManager>(ServiceProvider => new ProductManager(filePath));
+ProductService service = new ProductService();
+builder.Services.AddTransient<ProductManager>(ServiceProvider => new ProductManager(filePath, service));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

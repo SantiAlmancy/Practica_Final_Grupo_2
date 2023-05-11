@@ -1,16 +1,20 @@
 using System.IO;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using UPB.CoreLogic.Models;
+using UPB.CoreLogic.Services;
 
 namespace UPB.CoreLogic.Managers;
 
 public class ProductManager
 {
     private string _path;
+    private ProductService _service;
     
-    public ProductManager(string path)
+    public ProductManager(string path, ProductService service)
     {
         _path = path;
+        _service = service;
     }
 
     public Product Create(string name, string tipo, int stock, string code)
