@@ -115,7 +115,7 @@ public class ProductManager
         throw new Exception("Error, no se encontro un producto con el code: " + code);
     }
     
-    public Product Update(string code, string name, string type, int stock){
+    public Product Update(string code, string name, int stock){
         //encontrar producto con código
         //obtener lista de productos
         string jsonString = File.ReadAllText(_path);
@@ -123,20 +123,15 @@ public class ProductManager
         List<Product> products = JsonSerializer.Deserialize<List<Product>>(jsonString,options);
         if(products.Any() && products.Find(p => p.Code == code) != null)
         {
-            if(!type.Equals("SOCCER") && !type.Equals("BASKET"))
-            {   
-                throw new Exception("Error, tipo de producto no valido");
-            }else{
-                Product producttoUpdate = products.Find(p => p.Code == code);
-                producttoUpdate.Name = name;
-                producttoUpdate.Type = type;
-                producttoUpdate.Stock = stock;
+            Product producttoUpdate = products.Find(p => p.Code == code);
+            producttoUpdate.Name = name;
+            producttoUpdate.Stock = stock;
 
-                //guardar en json
-                string jsonStringUpdated = JsonSerializer.Serialize(products,options);
-                File.WriteAllText(_path, jsonStringUpdated);
-                return producttoUpdate;
-            }
+            //guardar en json
+            string jsonStringUpdated = JsonSerializer.Serialize(products,options);
+            File.WriteAllText(_path, jsonStringUpdated);
+            return producttoUpdate;
+            
         }else{
             throw new Exception("Error, no se encontró el producto");
         }
