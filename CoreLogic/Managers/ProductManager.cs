@@ -75,32 +75,21 @@ public class ProductManager
     {
         if (code.Length != 10)
         {
-            throw new Exception ("Error, el codigo no es valido");
+            throw new Exception("Error, el código no es válido");
         }
 
         string json = File.ReadAllText(_path);
-        JsonDocument doc = JsonDocument.Parse(json);
-        JsonElement root = doc.RootElement;
+        List<Product> products = JsonSerializer.Deserialize<List<Product>>(json);
 
-        if (root.ValueKind == JsonValueKind.Array)
+        foreach (Product product in products)
         {
-            foreach (JsonElement element in root.EnumerateArray())
+            if (product.Code == code)
             {
-                if (element.GetProperty("Code").GetString() == code)
-                {
-                    return new Product
-                    {
-                        Name = element.GetProperty("Name").GetString(),
-                        Type = element.GetProperty("Type").GetString(),
-                        Stock = element.GetProperty("Stock").GetInt32(),
-                        Code = element.GetProperty("Code").GetString(),
-                        Price = element.GetProperty("Price").GetDouble()
-                    };
-                }
+                return product;
             }
         }
 
-        throw new Exception("Error, no se encontro un producto con el code: " + code);
+        throw new Exception("Error, no se encontró un producto con el código: " + code);
     }
     
     public Product Update(string code, string name, int stock){
